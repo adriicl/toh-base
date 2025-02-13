@@ -1,26 +1,75 @@
-/* HeroDetailComponent's private CSS styles */
-label {
-    color: #435960;
+// 🎨 Variables de color
+$primary-color: #e62429;
+$dark-bg: #121212;
+$light-bg: #ffffff;
+$text-dark: #222;
+$text-light: #fff;
+
+// 🌎 Fondo general
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $light-bg;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+
+  @media (prefers-color-scheme: dark) {
+    background: $dark-bg;
+    color: $text-light;
+  }
+}
+
+// 📜 Información del héroe
+.hero-info {
+  margin-top: 15px;
+
+  h3 {
+    font-size: 1.8rem;
+    color: $primary-color;
+  }
+
+  .hero-id {
+    background: lighten($primary-color, 20%);
+    padding: 5px 10px;
+    border-radius: 5px;
     font-weight: bold;
+    display: inline-block;
+    color: $text-light;
+    margin-top: 10px;
   }
-  input {
-    font-size: 1em;
-    padding: .5rem;
+}
+
+// 🖼️ Imagen del héroe
+.hero-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid $primary-color;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
   }
-  button {
-    margin-top: 20px;
-    margin-right: .5rem;
-    background-color: #eee;
-    padding: 1rem;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  button:hover {
-    background-color: #cfd8dc;
-  }
-  button:disabled {
-    background-color: #eee;
-    color: #ccc;
-    cursor: auto;
-  }
-  
+}
+
+// 📌 Listas de comics y series
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: lighten($primary-color, 30%);
+  color: $text-dark;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-weight: bold;
+}

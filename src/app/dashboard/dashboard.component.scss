@@ -1,55 +1,85 @@
-/* DashboardComponent's private CSS styles */
+// 🎨 Variables de color
+$primary-color: #e62429;
+$dark-bg: #121212;
+$light-bg: #f5f5f5;
+$text-dark: #222;
+$text-light: #fff;
+$card-bg-dark: #1e1e1e;
+$card-bg-light: #ffffff;
+$shadow-color: rgba(0, 0, 0, 0.3);
 
-h2 {
-    text-align: center;
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: $light-bg;
+  color: $text-dark;
+  transition: background 0.3s, color 0.3s;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $dark-bg;
+    color: $text-light;
   }
-  
-  .heroes-menu {
-    padding: 0;
-    margin: auto;
-    max-width: 1000px;
-  
-    /* flexbox */
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: flex-start;
-    align-items: flex-start;
+}
+
+// 📜 Contenedor de personajes
+.heroes-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+// 🎴 Tarjeta de héroe
+.hero-card {
+  background: $card-bg-light;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0 5px 15px $shadow-color;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px $shadow-color;
   }
-  
-  a {
-    background-color: #3f525c;
-    border-radius: 2px;
-    padding: 1rem;
-    font-size: 1.2rem;
-    text-decoration: none;
-    display: inline-block;
-    color: #fff;
-    text-align: center;
-    width: 100%;
-    min-width: 70px;
-    margin: .5rem auto;
-    box-sizing: border-box;
-  
-    /* flexbox */
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
+
+  h3 {
+    font-size: 1.3rem;
+    margin: 10px 0;
+    color: $primary-color;
   }
-  
-  @media (min-width: 600px) {
-    a {
-      width: 18%;
-      box-sizing: content-box;
-    }
+
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid $primary-color;
+    transition: transform 0.3s ease;
   }
-  
-  a:hover {
-    background-color: black;
+
+  &:hover img {
+    transform: scale(1.1);
   }
-  
+
+  @media (prefers-color-scheme: dark) {
+    background: $card-bg-dark;
+  }
+}
+
+// ⏳ Mensaje de carga
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $primary-color;
+  margin-top: 20px;
+}

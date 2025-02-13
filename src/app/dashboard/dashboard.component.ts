@@ -1,30 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { HeroService } from '../hero.service';
-import { Hero } from '../hero.interface';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { MarvelService } from '../services/marvel.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subject, switchMap, tap } from 'rxjs';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
+import { RouterModule } from '@angular/router';
+import { Hero } from '../hero.interface';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, RouterModule, FormsModule, HeroSearchComponent],
+  standalone: true,
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [CommonModule, HeroSearchComponent, RouterModule],
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  characters = signal<Hero[]>([]);
+  currentPage = signal<number>(1);
+  private marvelService = inject(MarvelService);
+  private totalCharacters = 1500; // 🔹 Cantidad aproximada de personajes en la API
 
-  constructor(private heroService: HeroService) { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.getHeroes();
+    this.fetchCharacters(); // 🔹 Cargar personajes aleatorios al inicio
   }
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+  fetchCharacters(name?: string): void {
+    let page = this.currentPage();
+
+    // 🔹 Generar una página aleatoria solo si NO hay búsqueda activa
+    if (!name) {
+      const randomPage = Math.floor(Math.random() * (this.totalCharacters / 20)) + 1;
+      page = randomPage;
+    }
+
+    this.marvelService.getCharacters(name, page).subscribe((response) => {
+      this.characters.set(response);
+    });
   }
 
+  onSearchHero(name: string): void {
+    this.currentPage.set(1); // 🔹 Reiniciar búsqueda en la página 1
+    this.fetchCharacters(name);
+  }
 }

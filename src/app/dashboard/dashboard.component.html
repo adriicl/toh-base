@@ -1,14 +1,26 @@
+<h2>Dashboard</h2>
 
+<!-- 🔍 Componente de búsqueda -->
+<app-hero-search (search)="onSearchHero($event)"></app-hero-search>
 
-<h2>Top 5 Heroes</h2>
-<div class="heroes-menu">
-    @if (heroes) {
-    @for (hero of heroes; track hero.id) {
-    <a routerLink="/hero/{{hero.id}}">
-        {{hero.name}}
-    </a>
+<!-- Si no hay resultados, mostrar mensaje -->
+<p *ngIf="characters().length === 0">No se encontraron personajes.</p>
+
+<!-- Lista de personajes -->
+@if (characters().length > 0) {
+  <div class="heroes-menu">
+    @for (character of characters(); track character.id) {
+      <a [routerLink]="'/hero/' + character.id" class="hero-card">
+        <div>
+          <h3>{{ character.name }}</h3>
+          <img
+            [src]="character.thumbnail.path + '.' + character.thumbnail.extension"
+            [alt]="character.name"
+          />
+        </div>
+      </a>
     }
-    }
-</div>
-
-<app-hero-search></app-hero-search>
+  </div>
+} @else {
+  <p style="text-align: center;">Cargando personajes...</p>
+}

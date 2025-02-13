@@ -1,11 +1,33 @@
-<h2>HEROES</h2>
+<h2>Lista de Héroes</h2>
 
-<ul class="heroes">
-    @for (hero of heroes; track hero.id) {
-    <li>
-        <a routerLink="/hero/{{hero.id}}">
-            <span class="badge">{{hero.id}}</span> {{hero.name}}
+<!-- Botones de paginación -->
+<div class="pagination-controls">
+  <button (click)="prevPage()" [disabled]="currentPage() === 1">⬅️ Anterior</button>
+  <span>Página {{ currentPage() }}</span>
+  <button (click)="nextPage()">Siguiente ➡️</button>
+</div>
+
+<!-- Lista de personajes con tarjetas clickeables -->
+@if (characters().length > 0) {
+  <ul class="hero-list">
+    @for (character of characters(); track character.id) {
+      <li class="hero-card">
+        <a [routerLink]="'/hero/' + character.id" class="hero-link">
+          <div class="hero-content">
+            <img
+              [src]="character.thumbnail.path + '.' + character.thumbnail.extension"
+              [alt]="character.name"
+              class="hero-img"
+            />
+            <div class="hero-info">
+              <span class="hero-id">#{{ character.id }}</span>
+              <h3>{{ character.name }}</h3>
+            </div>
+          </div>
         </a>
-    </li>
+      </li>
     }
-</ul>
+  </ul>      
+} @else {
+  <p class="loading-message">Cargando personajes...</p>
+}

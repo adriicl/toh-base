@@ -1,31 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
-import { Hero } from '../hero.interface';
-import { HeroService } from '../hero.service';
-import { RouterModule } from '@angular/router';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-hero-search',
-  imports: [RouterModule, CommonModule],
+  standalone: true,
   templateUrl: './hero-search.component.html',
-  styleUrl: './hero-search.component.scss'
+  styleUrls: ['./hero-search.component.scss'],
+  imports: [CommonModule],
 })
-export class HeroSearchComponent implements OnInit {
-  heroes$!: Observable<Hero[]>;
-  private searchTerms = new Subject<string>();
+export class HeroSearchComponent {
+  searchQuery = signal<string>(''); // ✅ Estado reactivo
 
-  constructor(private heroService: HeroService) {}
+  @Output() search = new EventEmitter<string>(); // ✅ Emite la búsqueda al padre
 
-  search(term: string): void {
-    this.searchTerms.next(term);
+  onSearchInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery.set(target.value);
+    this.search.emit(this.searchQuery()); // ✅ Emitimos el valor actualizado
   }
 
-  ngOnInit(): void {
-    this.heroes$ = this.searchTerms.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((term: string) => this.heroService.searchHeroes(term)),
-    );
+  clearSearch(): void {
+    this.searchQuery.set('');
+    this.search.emit(''); // ✅ Emitimos vacío para reiniciar la búsqueda
   }
 }

@@ -1,36 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero.interface';
-import { FormsModule } from '@angular/forms';
-import { HeroService } from '../hero.service';
-import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MarvelService } from '../services/marvel.service';
+import { CommonModule } from '@angular/common';
+import { Hero } from '../hero.interface';
 
 @Component({
   selector: 'app-hero-detail',
-  imports: [FormsModule, CommonModule],
+  standalone: true,
   templateUrl: './hero-detail.component.html',
-  styleUrl: './hero-detail.component.scss'
+  styleUrls: ['./hero-detail.component.scss'],
+  imports: [CommonModule],
 })
 export class HeroDetailComponent implements OnInit {
-  hero: Hero | undefined;
+  character = signal<Hero | null>(null);
+  private marvelService = inject(MarvelService);
+  private route = inject(ActivatedRoute);
 
-  constructor(
-    private route: ActivatedRoute,
-    private heroService: HeroService,
-    private location: Location
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getHero();
+    const characterId = Number(this.route.snapshot.paramMap.get('id')); // Obtener el ID de la URL
+
+    if (characterId) {
+      this.fetchCharacter(characterId);
+    }
   }
 
-  getHero(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
+  fetchCharacter(id: number): void {
+    this.marvelService.getCharacterById(id).subscribe((response) => {
+      if (response.data.results.length > 0) {
+        this.character.set(response.data.results[0] as Hero); // ✅ Especificamos que es un `Hero`
+      }
+    });
+  }  
 }
