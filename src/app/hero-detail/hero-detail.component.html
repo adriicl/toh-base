@@ -10,7 +10,10 @@
   <div class="hero-info">
     <h3>{{ character()?.name }}</h3>
     <p class="hero-id">ID: {{ character()?.id }}</p>
-    <p *ngIf="character()?.description">{{ character()?.description }}</p>
+
+    @if (character()?.description) {
+      <p>{{ character()?.description }}</p>
+    }
 
     <h4>Comics</h4>
     <ul>

@@ -4,7 +4,9 @@
 <app-hero-search (search)="onSearchHero($event)"></app-hero-search>
 
 <!-- Si no hay resultados, mostrar mensaje -->
-<p *ngIf="characters().length === 0">No se encontraron personajes.</p>
+@if (characters().length === 0) {
+  <p>No se encontraron personajes.</p>
+}
 
 <!-- Lista de personajes -->
 @if (characters().length > 0) {
