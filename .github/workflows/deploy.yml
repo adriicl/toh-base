@@ -33,10 +33,22 @@ jobs:
         # REPO_NAME: cambia 'toh-base' si tu carpeta de dist difiere
         run: npm run build -- --base-href /${{ github.event.repository.name }}/
 
+      - name: Detect build output path
+        id: detect
+        run: |
+          if [ -d dist/tour-of-heroes/browser ]; then
+            echo "BUILD_DIR=dist/tour-of-heroes/browser" >> $GITHUB_ENV
+          elif [ -d dist/tour-of-heroes ]; then
+            echo "BUILD_DIR=dist/tour-of-heroes" >> $GITHUB_ENV
+          else
+            echo "Build directory not found" >&2
+            exit 1
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/tour-of-heroes/browser
+          path: ${{ env.BUILD_DIR }}
 
   deploy:
     needs: build
