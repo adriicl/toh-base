@@ -1,85 +1,52 @@
-// 🎨 Variables de color
-$primary-color: #e62429;
-$dark-bg: #121212;
-$light-bg: #f5f5f5;
-$text-dark: #222;
-$text-light: #fff;
-$card-bg-dark: #1e1e1e;
-$card-bg-light: #ffffff;
-$shadow-color: rgba(0, 0, 0, 0.3);
+// Usa el sistema de superficies y colores globales
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: $light-bg;
-  color: $text-dark;
-  transition: background 0.3s, color 0.3s;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-bg;
-    color: $text-light;
-  }
+.dashboard-title {
+  margin: 10px 20px;
+  color: #e62429;
 }
 
-// 📜 Contenedor de personajes
 .heroes-menu {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
   padding: 20px;
-  justify-content: center;
 }
 
-// 🎴 Tarjeta de héroe
 .hero-card {
-  background: $card-bg-light;
+  background: #17181a; /* superficie global */
+  border: 1px solid rgba(255,255,255,.06);
   border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  text-align: center;
-  padding: 15px;
-  box-shadow: 0 5px 15px $shadow-color;
-  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
   text-decoration: none;
   color: inherit;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
+  transition: transform .25s ease, box-shadow .25s ease;
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px $shadow-color;
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.45);
   }
 
   h3 {
-    font-size: 1.3rem;
-    margin: 10px 0;
-    color: $primary-color;
+    color: #e62429;
+    font-weight: 600;
   }
 
   img {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid $primary-color;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover img {
-    transform: scale(1.1);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background: $card-bg-dark;
+    border-radius: 14px;
+    border: 3px solid rgba(230,36,41,.8);
   }
 }
 
-// ⏳ Mensaje de carga
-p {
+.empty, .loading {
   text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: $primary-color;
-  margin-top: 20px;
+  color: #a6a7ab;
+  padding: 16px 0;
 }

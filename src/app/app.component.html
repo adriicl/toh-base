@@ -1,12 +1,23 @@
-<!-- HEADER -->
-<h1> TOUR OF HEROES </h1>
+<!-- HEADER mejorado con navegación -->
+<header class="app-header">
+  <div class="app-header-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-title">Tour of Heroes</span>
+    </div>
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/heroes" routerLinkActive="active">Héroes</a>
+    </nav>
+  </div>
+  </header>
 
-<nav>
-    <ul>
-        <li><a routerLink="/dashboard">DASHBOARD</a></li>
-        <li><a routerLink="/heroes">HEROES</a></li>
-    </ul>
-</nav>
+<main class="app-main container">
+  <router-outlet></router-outlet>
+  </main>
 
-<router-outlet></router-outlet>
-<!-- FOOTER -->
+<footer class="app-footer">
+  <div class="container">
+    <small>Datos de personajes provistos por Marvel. © Marvel</small>
+  </div>
+  </footer>

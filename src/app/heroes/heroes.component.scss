@@ -1,26 +1,3 @@
-// 🎨 Variables de color
-$primary-color: #e62429;
-$dark-bg: #121212;
-$light-bg: #f5f5f5;
-$text-dark: #222;
-$text-light: #fff;
-$card-bg-dark: #1e1e1e;
-$card-bg-light: #ffffff;
-$shadow-color: rgba(0, 0, 0, 0.3);
-
-// 🌎 Fondo general
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: $light-bg;
-  color: $text-dark;
-  transition: background 0.3s, color 0.3s;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-bg;
-    color: $text-light;
-  }
-}
-
 // 📜 Lista de héroes
 .hero-list {
   display: flex;
@@ -34,21 +11,22 @@ body {
 .hero-card {
   width: 100%;
   max-width: 500px;
-  background: $card-bg-light;
+  background: #17181a; /* superficie global */
+  border: 1px solid rgba(255,255,255,.06);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
   text-align: center;
   padding: 15px;
-  box-shadow: 0 5px 15px $shadow-color;
   display: flex;
   justify-content: center;
   position: relative;
   overflow: hidden;
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px $shadow-color;
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.45);
   }
 
   // ✅ Enlace que ocupa toda la tarjeta
@@ -70,8 +48,8 @@ body {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid $primary-color;
+    border-radius: 10px;
+    border: 3px solid rgba(230,36,41,.8);
     transition: transform 0.3s ease;
   }
 
@@ -83,8 +61,8 @@ body {
   .hero-id {
     font-weight: bold;
     font-size: 0.9rem;
-    color: darken($primary-color, 10%);
-    background: rgba($primary-color, 0.1);
+    color: #c41e23;
+    background: rgba(230,36,41, 0.12);
     padding: 5px 10px;
     border-radius: 5px;
   }
@@ -92,16 +70,15 @@ body {
   h3 {
     font-size: 1.2rem;
     margin: 5px 0;
-    color: $primary-color;
+    color: #e62429;
+    font-weight: 600;
   }
 
   &:hover .hero-img {
     transform: scale(1.1);
   }
 
-  @media (prefers-color-scheme: dark) {
-    background: $card-bg-dark;
-  }
+  // Superficie ya adapta el tema global
 }
 
 // 📌 Controles de paginación
@@ -113,8 +90,8 @@ body {
   margin: 20px 0;
 
   button {
-    background: $primary-color;
-    color: $text-light;
+    background: #e62429;
+    color: #fff;
     padding: 10px 15px;
     border: none;
     border-radius: 8px;
@@ -123,7 +100,7 @@ body {
     transition: background 0.3s;
 
     &:hover {
-      background: darken($primary-color, 10%);
+      background: #c41e23;
     }
 
     &:disabled {
@@ -137,5 +114,5 @@ body {
 .loading-message {
   text-align: center;
   font-size: 1.2rem;
-  color: $primary-color;
+  color: #e62429;
 }

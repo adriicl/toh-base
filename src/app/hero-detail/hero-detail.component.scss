@@ -1,28 +1,17 @@
-// 🎨 Variables de color
-$primary-color: #e62429;
-$dark-bg: #121212;
-$light-bg: #ffffff;
-$text-dark: #222;
-$text-light: #fff;
-
-// 🌎 Fondo general
+// Contenedor principal
 .hero-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: $light-bg;
-  padding: 20px;
+  background: #17181a; /* superficie global */
+  border: 1px solid rgba(255,255,255,.06);
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  padding: 20px;
   max-width: 500px;
   margin: 20px auto;
   text-align: center;
-  transition: background 0.3s, color 0.3s;
-
-  @media (prefers-color-scheme: dark) {
-    background: $dark-bg;
-    color: $text-light;
-  }
+  gap: 10px;
 }
 
 // 📜 Información del héroe
@@ -31,16 +20,17 @@ $text-light: #fff;
 
   h3 {
     font-size: 1.8rem;
-    color: $primary-color;
+    color: #e62429;
+    font-weight: 700;
   }
 
   .hero-id {
-    background: lighten($primary-color, 20%);
+    background: rgba(230,36,41, .18);
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: bold;
     display: inline-block;
-    color: $text-light;
+    color: #fff;
     margin-top: 10px;
   }
 }
@@ -50,8 +40,8 @@ $text-light: #fff;
   width: 180px;
   height: 180px;
   object-fit: cover;
-  border-radius: 50%;
-  border: 5px solid $primary-color;
+  border-radius: 14px;
+  border: 5px solid rgba(230,36,41,.8);
   transition: transform 0.3s ease;
 
   &:hover {
@@ -66,8 +56,8 @@ ul {
 }
 
 li {
-  background: lighten($primary-color, 30%);
-  color: $text-dark;
+  background: rgba(230,36,41, .12);
+  color: #e9eaee;
   padding: 8px 12px;
   margin: 5px 0;
   border-radius: 5px;
